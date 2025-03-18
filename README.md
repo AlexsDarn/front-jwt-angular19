@@ -1,59 +1,161 @@
-# FrontJwtAngular19
+# Angular 19 Playlist Manager
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.1.
+## Descripción
 
-## Development server
+Este proyecto es un **Playlist Manager** desarrollado con **Angular 19 Standalone** en el frontend y **Spring Boot** en el backend, utilizando **H2** como base de datos en memoria. La aplicación permite gestionar listas de reproducción, agregar canciones y visualizarlas de manera eficiente. 
 
-To start a local development server, run:
+### Características:
+- Interfaz de usuario moderna y reactiva desarrollada con **Angular 19 Standalone**.
+- Backend construido con **Spring Boot** para manejar la lógica de las listas de reproducción y canciones.
+- **H2** como base de datos en memoria para almacenar las listas de reproducción y las canciones.
+- Soporte para ingresar canciones con los siguientes campos:
+  - **Título**
+  - **Artista**
+  - **Álbum**
+  - **Año de lanzamiento**
+  - **Género**
 
-```bash
-ng serve
+## Tecnologías
+
+- **Frontend**: Angular 19 Standalone
+- **Backend**: Spring Boot (Java 21)
+- **Base de datos**: H2 (base de datos en memoria)
+- **Autenticación**: JWT para manejo de sesiones de usuario
+- **Notificaciones**: `ngx-toastr` para mostrar notificaciones
+
+## Requisitos
+
+- **Node.js** (versión 16 o superior)
+- **npm** (versión 8 o superior)
+- **Java 21**
+- **Spring Boot** (version 2.7+)
+- **Maven** (para el backend)
+- **H2 Database** (para la base de datos en memoria)
+
+## Instalación
+
+### 1. Configuración del Backend
+
+1. Clona el repositorio y navega a la carpeta del proyecto backend:
+   ```bash
+   git clone https://github.com/AlexsDarn/spring-jwt-jpa-h2
+   cd backend
+   ```
+
+2. Abre el archivo `application.properties` en la carpeta `src/main/resources` y asegúrate de que la configuración de la base de datos H2 esté habilitada.
+
+3. Construye el proyecto con Maven:
+   ```bash
+   mvn clean install
+   ```
+
+4. Ejecuta la aplicación de Spring Boot:
+   ```bash
+   mvn spring-boot:run
+   ```
+
+El backend debería estar corriendo en `http://localhost:8080`.
+
+### 2. Configuración del Frontend
+
+1. Clona el repositorio del frontend y navega a la carpeta del proyecto frontend:
+   ```bash
+   git clone https://github.com/AlexsDarn/front-jwt-angular19
+   cd frontend
+   ```
+
+2. Instala las dependencias:
+   ```bash
+   npm install
+   ```
+
+3. Configura las rutas en `src/app/core/services/http-provider.service.ts` para conectar el frontend con el backend. Asegúrate de que la URL del backend coincida con la de tu configuración (`http://localhost:8080`).
+
+4. Ejecuta el servidor de desarrollo de Angular:
+   ```bash
+   ng serve
+   ```
+
+El frontend debería estar corriendo en `http://localhost:4200`.
+
+## Uso
+
+### Agregar una nueva canción
+
+Para agregar canciones a una lista de reproducción, ingresa los siguientes detalles:
+
+| Título                | Artista         | Álbum                | Año de Lanzamiento | Género        |
+|-----------------------|-----------------|----------------------|--------------------|---------------|
+| The Forgotten Castle  | Dark Lord       | Echoes of the Dungeon | 1998               | Dungeon Synth |
+| Mystic Fog            | Ancient Sorcery | Arcane Melodies      | 2002               | Dungeon Synth |
+| Moonlit Ruins         | Shadow Wizard   | Tales of the Night   | 2005               | Dungeon Synth |
+
+debe ser en texto plano separado por ,
+The Forgotten Castle, Dark Lord, Echoes of the Dungeon, 1998, Dungeon Synth
+Mystic Fog, Ancient Sorcery, Arcane Melodies, 2002, Dungeon Synth
+Moonlit Ruins, Shadow Wizard, Tales of the Night, 2005, Dungeon Synth
+
+### Visualizar y gestionar las listas de reproducción
+
+Una vez que las canciones se hayan agregado, puedes verlas en las listas de reproducción. La aplicación mostrará la información como el título de la canción, el artista, el álbum, el año de lanzamiento y el género.
+
+## Ejemplo de Endpoint para Crear una Canción
+
+Para agregar una canción, utiliza el siguiente endpoint de la API:
+
+### **POST** `http://localhost:8080/lists`
+
+**Cuerpo de la solicitud (JSON):**
+```json
+{
+    "name": "Dungeon Synth Classics",
+    "description": "Una recopilación de los mejores temas de dungeon synth.",
+    "songs": [
+        {
+            "title": "The Forgotten Castle",
+            "artist": "Dark Lord",
+            "album": "Echoes of the Dungeon",
+            "releaseYear": 1998,
+            "genre": "Dungeon Synth"
+        },
+        {
+            "title": "Mystic Fog",
+            "artist": "Ancient Sorcery",
+            "album": "Arcane Melodies",
+            "releaseYear": 2002,
+            "genre": "Dungeon Synth"
+        },
+        {
+            "title": "Moonlit Ruins",
+            "artist": "Shadow Wizard",
+            "album": "Tales of the Night",
+            "releaseYear": 2005,
+            "genre": "Dungeon Synth"
+        }
+    ]
+}
+
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+### **GET** `/api/playlists/{playlistId}/songs`
 
-## Code scaffolding
+Este endpoint devuelve todas las canciones de una lista de reproducción específica.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Rutas del Proyecto
 
-```bash
-ng generate component component-name
-```
+### Frontend
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+- **/home**: Página principal donde se gestionan las listas de reproducción.
+- **/playlists/view-playlist/{name}**: Página donde se muestran los detalles de una playlist específica, incluyendo sus canciones.
 
-```bash
-ng generate --help
-```
+### Backend
 
-## Building
+- Revisar en la carpeta resources el archivo openapi.yaml
 
-To build the project run:
+## Licencia
 
-```bash
-ng build
-```
+Este proyecto está licenciado bajo la **MIT License** - consulta el archivo [LICENSE](LICENSE) para más detalles.
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+---
 
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+¡Gracias por usar Dungeon Synth Playlist Manager! 🎶

@@ -15,17 +15,21 @@ export class HttpProviderService {
   getAllPlaylists(): Observable<any[]> {
     return this.webApiService.get(`${this.apiUrl}/lists`);
   }
+
+  getPlaylistByName(name: string): Observable<any> {
+    return this.webApiService.get(`${this.apiUrl}/lists/${encodeURIComponent(name)}`);
+  }
   
-  deletePlaylistById(id: number): Observable<any> {
-    return this.webApiService.delete(`http://localhost:8080/lists/${id}`);
+  deletePlaylistById(name: string): Observable<any> {
+    return this.webApiService.delete(`${this.apiUrl}/lists/${encodeURIComponent(name)}`);
   }
 
   getAllUser(): Observable<any> {
     return this.webApiService.get(`${this.apiUrl}`);
   }
 
-  deleteUserById(userId: number): Observable<any> {
-    return this.webApiService.delete(`${this.apiUrl}/${encodeURIComponent(userId)}`); // o un post para borrado lógico
+  deletePlaylistByName(name: string): Observable<any> {
+    return this.webApiService.delete(`${this.apiUrl}/lists/${encodeURIComponent(name)}`);
   }
 
   getUserById(userId: number): Observable<any> {

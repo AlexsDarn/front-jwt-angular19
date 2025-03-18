@@ -47,13 +47,13 @@ export class HomeComponent implements OnInit {
     const modalRef = this.modalService.open(PopUpComponent);
     modalRef.result.then((result) => {
       if (result) {
-        this.deletePlaylist(playlist);
+        this.deletePlaylist(playlist.name);  // Usar el nombre de la playlist
       }
     }).catch(() => {});
   }
 
-  deletePlaylist(playlist: any) {
-    this.httpProvider.deletePlaylistById(playlist.id).pipe(
+  deletePlaylist(playlistName: string) {
+    this.httpProvider.deletePlaylistByName(playlistName).pipe(
       tap(() => {
         this.toastr.success('Playlist deleted successfully');
         this.getAllPlaylists();

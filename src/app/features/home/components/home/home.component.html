@@ -36,11 +36,8 @@
               </ul>
             </td>
             <td>
-              <a [routerLink]="['/playlists/view-playlist', playlist.id]" class="btn btn-outline-primary btn-sm mx-1">
+              <a [routerLink]="['/playlists/view-playlist', playlist.name]" class="btn btn-outline-primary btn-sm mx-1">
                 <i class="fas fa-eye"></i> View
-              </a>
-              <a [routerLink]="['/playlists/edit-playlist', playlist.id]" class="btn btn-outline-warning btn-sm mx-1">
-                <i class="fa fa-edit"></i> Edit
               </a>
               <button (click)="deletePlaylistConfirmation(playlist)" class="btn btn-outline-danger btn-sm mx-1">
                 <i class="fas fa-trash-alt"></i> Delete
