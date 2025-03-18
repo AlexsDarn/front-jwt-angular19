@@ -1,0 +1,57 @@
+<div class="container mt-4">
+  <div class="card shadow-lg rounded">
+    <div class="card-header d-flex justify-content-between align-items-center bg-dark text-white">
+      <h4 class="mb-0"><i class="fas fa-music"></i> Manage Playlists</h4>
+      <div class="mx-1">
+        <button class="btn btn-success btn-sm mx-3" (click)="addPlaylist()">
+          <i class="fas fa-plus-circle"></i> Add Playlist
+        </button>
+        <button class="btn btn-danger btn-sm" (click)="logout()">
+          <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+      </div>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-hover table-bordered align-middle text-center">
+        <thead class="table-dark">
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Songs</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let playlist of playlistList$ | async" class="table-light">
+            <td><b>{{ playlist.id }}</b></td>
+            <td>{{ playlist.name }}</td>
+            <td>{{ playlist.description }}</td>
+            <td>
+              <ul>
+                <li *ngFor="let song of playlist.songs">
+                  {{ song.title }} - {{ song.artist }}
+                </li>
+              </ul>
+            </td>
+            <td>
+              <a [routerLink]="['/playlists/view-playlist', playlist.id]" class="btn btn-outline-primary btn-sm mx-1">
+                <i class="fas fa-eye"></i> View
+              </a>
+              <a [routerLink]="['/playlists/edit-playlist', playlist.id]" class="btn btn-outline-warning btn-sm mx-1">
+                <i class="fa fa-edit"></i> Edit
+              </a>
+              <button (click)="deletePlaylistConfirmation(playlist)" class="btn btn-outline-danger btn-sm mx-1">
+                <i class="fas fa-trash-alt"></i> Delete
+              </button>
+            </td>            
+          </tr>
+          <tr *ngIf="(playlistList$ | async)?.length === 0">
+            <td colspan="5" class="text-muted py-3">No Playlists Found</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
